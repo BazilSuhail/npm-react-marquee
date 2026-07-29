@@ -4,6 +4,22 @@ export const styles = `
   position: relative;
 }
 
+.rim-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rim-mask--left {
+  left: 0;
+}
+
+.rim-mask--right {
+  right: 0;
+}
+
 .rim-track {
   display: flex;
   width: max-content;

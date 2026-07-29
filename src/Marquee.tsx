@@ -9,6 +9,10 @@ export interface MarqueeProps {
   direction?: 'left' | 'right';
   gap?: number;
   pauseOnHover?: boolean;
+  mask?: boolean;
+  maskColor?: string;
+  maskIntensity?: number;
+  maskWidth?: number;
   className?: string;
   style?: CSSProperties;
 }
@@ -26,6 +30,10 @@ export default function Marquee({
   direction = 'left',
   gap = 0,
   pauseOnHover = true,
+  mask = true,
+  maskColor = 'white',
+  maskIntensity = 1,
+  maskWidth = 80,
   className = '',
   style,
 }: MarqueeProps) {
@@ -94,6 +102,11 @@ export default function Marquee({
     ...style,
   };
 
+  const maskGradient = (side: 'left' | 'right') => {
+    const dir = side === 'left' ? 'to right' : 'to left';
+    return `linear-gradient(${dir}, ${maskColor} 0%, transparent 100%)`;
+  };
+
   return (
     <div
       ref={containerRef}
@@ -102,13 +115,32 @@ export default function Marquee({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {mask && (
+        <>
+          <div
+            className="rim-mask rim-mask--left"
+            style={{
+              width: `${maskWidth}px`,
+              background: maskGradient('left'),
+              opacity: maskIntensity,
+            }}
+          />
+          <div
+            className="rim-mask rim-mask--right"
+            style={{
+              width: `${maskWidth}px`,
+              background: maskGradient('right'),
+              opacity: maskIntensity,
+            }}
+          />
+        </>
+      )}
       <div
         ref={trackRef}
         className="rim-track"
-        style={{ gap: `${gap}px` }}
       >
-        <div className="rim-content">{children}</div>
-        <div className="rim-content" aria-hidden="true">{children}</div>
+        <div className="rim-content" style={{ gap: `${gap}px`, paddingLeft: `${gap / 2}px`, paddingRight: `${gap / 2}px` }}>{children}</div>
+        <div className="rim-content" style={{ gap: `${gap}px`, paddingLeft: `${gap / 2}px`, paddingRight: `${gap / 2}px` }} aria-hidden="true">{children}</div>
       </div>
     </div>
   );

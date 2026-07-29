@@ -10,6 +10,7 @@ Zero-dependency infinite scrolling marquee component for React, powered by the W
 
 - **Infinite loop** — seamless CSS-free scrolling via WAAPI
 - **Bidirectional** — scroll left or right
+- **Edge mask** — gradient fade on both edges, configurable color/width/intensity
 - **Pause on hover** — optional, default enabled
 - **Resize-aware** — auto-restarts on content resize via `ResizeObserver`
 - **Reduced motion** — respects `prefers-reduced-motion`
@@ -48,8 +49,12 @@ function App() {
 | `height` | `string \| number` | `'auto'` | Container height. Numbers are px. |
 | `speed` | `number` | `30` | Scroll speed in px/second. |
 | `direction` | `'left' \| 'right'` | `'left'` | Scroll direction. |
-| `gap` | `number` | `0` | Gap in px between content duplicates. |
+| `gap` | `number` | `0` | Gap in px between items. |
 | `pauseOnHover` | `boolean` | `true` | Pause animation on hover. |
+| `mask` | `boolean` | `true` | Show gradient fade on left/right edges. |
+| `maskColor` | `string` | `'white'` | Gradient start color. |
+| `maskIntensity` | `number` | `1` | Mask opacity (0-1). |
+| `maskWidth` | `number` | `80` | Mask width in px. |
 | `className` | `string` | `''` | Additional CSS class on the container. |
 | `style` | `CSSProperties` | — | Additional inline styles on the container. |
 
@@ -83,15 +88,13 @@ function App() {
 </Marquee>
 ```
 
-### Vertical-Fixed Content
+### With Gap
 
 ```tsx
-<Marquee height={100} speed={20}>
-  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-    <span>Notification 1</span>
-    <span>Notification 2</span>
-    <span>Notification 3</span>
-  </div>
+<Marquee gap={16} speed={40}>
+  <div>Card 1</div>
+  <div>Card 2</div>
+  <div>Card 3</div>
 </Marquee>
 ```
 
@@ -129,21 +132,49 @@ function App() {
 </Marquee>
 ```
 
+### No Mask (Hard Edges)
+
+```tsx
+<Marquee mask={false}>
+  <span>Content with no edge fade</span>
+</Marquee>
+```
+
+### Custom Mask Color
+
+```tsx
+<Marquee maskColor="#1e293b" maskIntensity={0.8}>
+  <span>Dark themed marquee</span>
+</Marquee>
+```
+
+### Wide Mask, Low Intensity
+
+```tsx
+<Marquee maskWidth={120} maskIntensity={0.4}>
+  <span>Subtle edge fade</span>
+</Marquee>
+```
+
 ## How It Works
 
 1. Children are rendered **twice** — the second copy has `aria-hidden="true"`
 2. WAAPI animates `translateX` on the track from `0` to `-halfWidth`
 3. When it reaches the end, the loop seamlessly restarts (the duplicated content covers the gap)
 4. `ResizeObserver` watches the track and restarts animation on size changes
+5. Optional gradient masks fade content at the edges for a polished look
 
-## CSS Custom Properties
+## CSS Classes
 
 The component uses these CSS classes (auto-injected):
 
 ```css
-.rim-container   /* overflow: hidden, position: relative */
-.rim-track       /* display: flex, width: max-content, will-change: transform */
-.rim-content     /* display: flex, align-items: center */
+.rim-container    /* overflow: hidden, position: relative */
+.rim-mask         /* position: absolute, pointer-events: none */
+.rim-mask--left   /* left: 0 */
+.rim-mask--right  /* right: 0 */
+.rim-track        /* display: flex, width: max-content, will-change: transform */
+.rim-content      /* display: flex, align-items: center */
 ```
 
 ## Accessibility

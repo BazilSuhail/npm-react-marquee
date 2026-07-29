@@ -1,0 +1,21 @@
+.rim-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.rim-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.rim-content {
+  display: flex;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rim-track {
+    animation: none !important;
+  }
+}

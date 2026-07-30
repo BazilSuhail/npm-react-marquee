@@ -10,6 +10,7 @@ Zero-dependency infinite scrolling marquee component for React, powered by the W
 
 - **Infinite loop** — seamless CSS-free scrolling via WAAPI
 - **Bidirectional** — scroll left or right
+- **Scroll direction** — auto-reverses on wheel scroll with 150ms debounce
 - **Edge mask** — gradient fade on both edges, configurable color/width/intensity
 - **Pause on hover** — optional, default enabled
 - **Resize-aware** — auto-restarts on content resize via `ResizeObserver`
@@ -51,6 +52,7 @@ function App() {
 | `direction` | `'left' \| 'right'` | `'left'` | Scroll direction. |
 | `gap` | `number` | `0` | Gap in px between items. |
 | `pauseOnHover` | `boolean` | `true` | Pause animation on hover. |
+| `scrollDirection` | `boolean` | `false` | Reverse scroll direction on wheel scroll. |
 | `mask` | `boolean` | `true` | Show gradient fade on left/right edges. |
 | `maskColor` | `string` | `'white'` | Gradient start color. |
 | `maskIntensity` | `number` | `1` | Mask opacity (0-1). |
@@ -156,13 +158,22 @@ function App() {
 </Marquee>
 ```
 
+### Scroll Direction (Wheel Reversal)
+
+```tsx
+<Marquee scrollDirection>
+  <span>Scrolls with the page — reverses when you scroll up/down</span>
+</Marquee>
+```
+
 ## How It Works
 
 1. Children are rendered **twice** — the second copy has `aria-hidden="true"`
 2. WAAPI animates `translateX` on the track from `0` to `-halfWidth`
 3. When it reaches the end, the loop seamlessly restarts (the duplicated content covers the gap)
 4. `ResizeObserver` watches the track and restarts animation on size changes
-5. Optional gradient masks fade content at the edges for a polished look
+5. When `scrollDirection` is enabled, wheel events reverse the animation direction with a 150ms debounce to prevent rapid restarts
+6. Optional gradient masks fade content at the edges for a polished look
 
 ## CSS Classes
 

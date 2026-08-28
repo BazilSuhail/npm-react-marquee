@@ -2,9 +2,12 @@
 
 [![npm version](https://img.shields.io/npm/v/entity-react-marquee.svg)](https://www.npmjs.com/package/entity-react-marquee)
 [![npm downloads](https://img.shields.io/npm/dm/entity-react-marquee.svg)](https://www.npmjs.com/package/entity-react-marquee)
-[![license](https://img.shields.io/npm/l/entity-react-marquee.svg)](https://github.com/BazilSuhail/react-slider/blob/main/LICENSE)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/entity-react-marquee)](https://bundlephobia.com/package/entity-react-marquee)
-[![typescript](https://img.shields.io/badge/typescript-ready-blue.svg)](https://www.typescriptlang.org/)
+[![license](https://img.shields.io/npm/l/entity-react-marquee.svg)](https://github.com/BazilSuhail/npm-react-marquee/blob/main/LICENSE)
+[![types](https://img.shields.io/badge/types-typescript-blue.svg)](https://www.typescriptlang.org/)
+[![zero deps](https://img.shields.io/badge/dependencies-zero-brightgreen.svg)]()
+[![tree shakable](https://img.shields.io/badge/tree--shaking-yes-brightgreen.svg)]()
+[![react](https://img.shields.io/badge/react-18%2B-61dafb.svg)](https://react.dev/)
+[![bundle size](https://img.shields.io/bundlejs/size/entity-react-marquee?label=min%2Bgzip)](https://bundlejs.com/?q=entity-react-marquee)
 
 Zero-dependency infinite scrolling marquee component for React, powered by the Web Animations API.
 

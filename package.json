@@ -1,6 +1,6 @@
 {
   "name": "entity-react-marquee",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Zero-dependency infinite scrolling marquee component for React with WAAPI",
   "type": "module",
   "main": "./dist/index.cjs",

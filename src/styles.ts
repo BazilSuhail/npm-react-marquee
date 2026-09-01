@@ -30,10 +30,4 @@ export const styles = `
   display: flex;
   align-items: center;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .rim-track {
-    animation: none !important;
-  }
-}
 `;
